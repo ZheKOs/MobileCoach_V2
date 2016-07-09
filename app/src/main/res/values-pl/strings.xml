@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">MobileCoach_V2</string>
     <string name="title_activity_main">MainActivity</string>
+
+    <string name="workout">Workout</string>
+    <string name="nutrition">Nutrition</string>
+    <string name="stats">Stats</string>
+
 </resources>

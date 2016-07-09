@@ -1,10 +1,13 @@
 package io.github.zhekos.mobilecoach_v2.db;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 
-public class Workout extends RealmObject {
+public class Workout extends RealmObject implements Parcelable{
 
     @PrimaryKey
     private long id;
@@ -62,5 +65,35 @@ public class Workout extends RealmObject {
         this.description = description;
     }
 
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    //Parcelable part
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(getId());
+    }
+
+    // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
+    public static final Parcelable.Creator<Workout> CREATOR = new Parcelable.Creator<Workout>() {
+        public Workout createFromParcel(Parcel in) {
+            return new Workout(in);
+        }
+
+        public Workout[] newArray(int size) {
+            return new Workout[size];
+        }
+    };
+
+    // example constructor that takes a Parcel and gives you an object populated with it's values
+    private Workout(Parcel in) {
+        setId(in.readLong());
+    }
 
 }
