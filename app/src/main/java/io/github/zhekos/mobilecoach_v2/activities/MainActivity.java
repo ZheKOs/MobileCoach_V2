@@ -9,10 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import io.github.zhekos.mobilecoach_v2.R;
-import io.github.zhekos.mobilecoach_v2.adapters.FragmentPagerItemAdapter;
+import io.github.zhekos.mobilecoach_v2.adapters.PagerAdapter;
 import io.github.zhekos.mobilecoach_v2.db.DBHelper;
 
+import io.github.zhekos.mobilecoach_v2.db.WorkoutPlan;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -38,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         initToolbar();
 
-        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(context);
+        PagerAdapter adapter = new PagerAdapter(context, getSupportFragmentManager());
 
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(adapter);
@@ -54,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
     private void prepareDB(){
         RealmConfiguration realmConfig = new RealmConfiguration.Builder(context).build();
         Realm.setDefaultConfiguration(realmConfig);
+        realm = Realm.getDefaultInstance();
+
+        //TESTIN PART
+        testDB();
     }
 
     private void initToolbar(){
@@ -61,8 +68,38 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle("");
         TextView mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
         Typeface typeface = Typeface.createFromAsset(getAssets(),"fonts/nrkis.ttf");
+
         mTitle.setTypeface(typeface);
         setSupportActionBar(toolbar);
     }
 
+    private void testDB(){
+
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.delete(WorkoutPlan.class);
+            }
+        });
+
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                WorkoutPlan wp = new WorkoutPlan();
+                wp.setName("Test 1");
+                realm.copyToRealmOrUpdate(wp);
+                WorkoutPlan wp2 = new WorkoutPlan();
+                wp2.setName("Test 2");
+                realm.copyToRealmOrUpdate(wp2);
+            }
+        });
+
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        realm.close();
+    }
 }

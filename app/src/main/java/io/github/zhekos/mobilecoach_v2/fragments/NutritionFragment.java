@@ -27,10 +27,9 @@ public class NutritionFragment extends Fragment {
 
     public static NutritionFragment newInstance() {
         NutritionFragment fragment = new NutritionFragment();
-        Bundle args = new Bundle();
-        args.putParcelableArrayList(ARG_DISHES, dishes);
-        fragment.setArguments(args);
-
+//        Bundle args = new Bundle();
+//        args.putParcelableArrayList(ARG_DISHES, dishes);
+//        fragment.setArguments(args);
         return fragment;
     }
 

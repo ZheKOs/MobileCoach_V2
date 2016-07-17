@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
 
 public class WorkoutPlan extends RealmObject implements Parcelable{
 
@@ -15,7 +16,9 @@ public class WorkoutPlan extends RealmObject implements Parcelable{
     private RealmList<Workout> workouts;
 
     //TODO: Constructors WorkoutPlan
-    public WorkoutPlan(){}
+    public WorkoutPlan(){
+        this.id = RealmAutoIncrement.getInstance(this.getClass()).getNextIdFromModel();
+    }
 
 
 

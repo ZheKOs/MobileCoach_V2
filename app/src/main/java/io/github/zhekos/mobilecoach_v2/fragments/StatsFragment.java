@@ -19,6 +19,13 @@ public class StatsFragment extends Fragment {
 
     View mView;
 
+    public static StatsFragment newInstance() {
+        StatsFragment fragment = new StatsFragment();
+//        Bundle args = new Bundle();
+//        args.putParcelableArrayList(ARG_DISHES, dishes);
+//        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Nullable
     @Override

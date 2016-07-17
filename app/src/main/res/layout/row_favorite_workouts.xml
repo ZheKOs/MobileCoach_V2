@@ -25,6 +25,7 @@
             android:text="@string/workout_name"/>
 
         <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/row_btn_favorite_workout_info"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:background="@android:color/transparent"
